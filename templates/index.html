@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>IMEI Generator</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+      body {
+          background-color: #f8f9fa; 
+      }
+      .container {
+          margin-top: 50px;
+      }
+  </style>
+</head>
+<body>
+  <div class="container">
+      <h1 class="text-center mb-4">IMEI Generator</h1>
+      <div class="row justify-content-center">
+          <div class="col-md-6">
+              <form method="POST" class="form">
+                  <div class="form-group">
+                      <label for="model">Select Phone Model:</label>
+                      <select name="model" id="model" class="form-control">
+                          <option value="Select Model">Select Model</option>
+                          {% for model in phone_models %}
+                              <option value="{{ model[0] }}">{{ model[0] }}</option>
+                          {% endfor %}
+                      </select>
+                  </div>
+                  <div class="form-group">
+                      <label for="quantity">Quantity:</label>
+                      <input type="number" name="quantity" id="quantity" class="form-control" value="1" min="1">
+                  </div>
+                  <div class="form-group">
+                      <label for="custom_imei">Enter Custom IMEI:</label>
+                      <input type="text" name="custom_imei" id="custom_imei" class="form-control">
+                  </div>
+                  <button type="submit" class="btn btn-primary btn-block">Generate IMEI</button>
+              </form>
+
+              {% if imei_list %}
+                  <h2 class="mt-4">Generated IMEIs:</h2>
+                  <ul class="list-group" id="imei-list"> 
+                      {% for imei in imei_list %}
+                          <li class="list-group-item">{{ imei }}</li>
+                      {% endfor %}
+                  </ul>
+              {% endif %}
+          </div>
+      </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log("JavaScript running"); 
+      setTimeout(function() {
+        const imeiList = document.querySelector('.container .list-group'); 
+        if (imeiList) {
+          imeiList.innerHTML = ''; 
+        } else {
+          console.log("Element not found!"); 
+        }
+      }, 10000); 
+    });
+  </script>
+</body>
+</html>
